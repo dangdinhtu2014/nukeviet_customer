@@ -104,10 +104,7 @@ if( ACTION_METHOD == 'delete' )
 			$delete->execute();
 			
 			if( $delete->rowCount() )
-			{ 
-				$delete_row = $db->prepare('DELETE FROM ' . TABLE_CUSTOMER_NAME . '_rows WHERE photo_id=' . (int)$photo['photo_id'] );
-				$delete_row->execute();
-				
+			{ 		
 				
 				$info['id'][$a] = $photo_id;
  

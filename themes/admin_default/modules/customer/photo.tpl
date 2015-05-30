@@ -20,7 +20,7 @@
 					<form action="{NV_BASE_ADMINURL}index.php" method="get">
 					<input type="hidden" name ="{NV_NAME_VARIABLE}"value="{MODULE_NAME}" />
 					<input type="hidden" name ="{NV_OP_VARIABLE}"value="{OP}" />
-					<div class="col-sm-6">
+					<div class="col-sm-12">
 						<div class="form-group">
 							<label class="control-label" for="input-photo-title">{LANG.photo_title}</label>
 							<input type="text" name="filter_title" value="{DATA.filter_title}" placeholder="{LANG.photo_title}" id="input-photo-title" class="form-control" autocomplete="off">
@@ -30,7 +30,7 @@
 							<input type="text" name="filter_date_added" value="{DATA.filter_date_added}" placeholder="{LANG.column_date_added}" id="input-date-added" class="form-control"> 
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-12">
 						<div class="form-group">
 							<label class="control-label" for="input-status">{LANG.photo_status}</label>
 							<select name="filter_status" id="input-status" class="form-control">
@@ -54,24 +54,24 @@
 						<thead>
 							<tr>
 								<td class="col-md-0 text-center" ><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></td>
-								<td class="col-md-3 text-left"><a href="{URL_TITLE}">{LANG.photo_title}</a> </td>
- 								<td class="col-md-4 text-center"> <strong>{LANG.photo_image} </strong></td>
-								<td class="col-md-1 text-center"> <strong>{LANG.photo_status} </strong></td>
-								<td class="col-md-1 text-center"> <strong>{LANG.photo_date_added} </strong></td>
-								<td class="col-md-1 text-center" ><a href="{URL_WEIGHT}">{LANG.weight}</a></td>
-								<td class="col-md-2 text-right"> <strong>{LANG.action} </strong></td>
+								<td class="col-md-6 text-left"><a href="{URL_TITLE}">{LANG.photo_title}</a> </td>
+ 								<td class="col-md-8 text-center"> <strong>{LANG.photo_image} </strong></td>
+								<td class="col-md-2 text-center"> <strong>{LANG.photo_status} </strong></td>
+								<td class="col-md-2 text-center"> <strong>{LANG.photo_date_added} </strong></td>
+								<td class="col-md-2 text-center" ><a href="{URL_WEIGHT}">{LANG.weight}</a></td>
+								<td class="col-md-4 text-right"> <strong>{LANG.action} </strong></td>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- BEGIN: loop --> 
-							<tr id="group_{LOOP.group_id}">
-								<td class="text-left"><input type="checkbox" name="selected[]" value="{LOOP.group_id}"></td>
-								<td class="text-left"><a href="{LOOP.view}"> <strong>{LOOP.title}</strong> </a> </td>
+							<tr id="group_{LOOP.photo_id}">
+								<td class="text-left"><input type="checkbox" name="selected[]" value="{LOOP.photo_id}"></td>
+								<td class="text-left"> <strong>{LOOP.title}</strong></td>
 								<td align="center">
 									<a href="{LOOP.image}" rel="shadowbox"><img src="{LOOP.thumb}" style="max-height: 50px"></a>
 								</td>	
 								<td class="text-center">
-									<select class="form-control" id="change_status_{LOOP.group_id}" onchange="nv_change_group('{LOOP.group_id}','status');">
+									<select class="form-control" id="change_status_{LOOP.photo_id}" onchange="nv_change_photo('{LOOP.photo_id}','status');">
 										<!-- BEGIN: status -->
 										<option value="{STATUS.key}"{STATUS.selected}>{STATUS.name}</option>
 										<!-- END: status -->
@@ -81,7 +81,7 @@
 									{LOOP.date_added}
 								</td>
 								<td class="text-center">
-									<select id="change_weight_{LOOP.group_id}" onchange="nv_change_group('{LOOP.group_id}','weight');" class="form-control">
+									<select id="change_weight_{LOOP.photo_id}" onchange="nv_change_photo('{LOOP.photo_id}','weight');" class="form-control">
 										<!-- BEGIN: weight -->
 										<option value="{WEIGHT.key}"{WEIGHT.selected}>{WEIGHT.name}</option>
 										<!-- END: weight -->
@@ -89,7 +89,7 @@
 								</td>
 								<td class="text-right">
 									<a href="{LOOP.edit}" data-toggle="tooltip" title="{LANG.edit}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-									<a href="javascript:void(0);" onclick="delete_group('{LOOP.group_id}', '{LOOP.token}')" data-toggle="tooltip" title="{LANG.delete}" class="btn btn-danger"><i class="fa fa-trash-o"></i>
+									<a href="javascript:void(0);" onclick="delete_photo('{LOOP.photo_id}', '{LOOP.token}')" data-toggle="tooltip" title="{LANG.delete}" class="btn btn-danger"><i class="fa fa-trash-o"></i>
 								</td>
 							</tr>
 							<!-- END: loop -->
@@ -99,7 +99,7 @@
 			</form>
 			<!-- BEGIN: generate_page -->
 			<div class="row">
-				<div class="col-sm-12 text-left">
+				<div class="col-sm-24 text-left">
 				
 				<div style="clear:both"></div>
 				{GENERATE_PAGE}
@@ -144,7 +144,7 @@ $('input[name=\'filter_name\']').autofill({
 				response($.map(json, function(item) {
 					return {
 						label: item['name'],
-						value: item['group_id']
+						value: item['photo_id']
 					}
 				}));
 			}
@@ -155,13 +155,13 @@ $('input[name=\'filter_name\']').autofill({
 	}
 });
 
-function delete_group(group_id, token) {
+function delete_photo(photo_id, token) {
 	if(confirm('{LANG.confirm}')) {
 		$.ajax({
-			url: script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=group&action=delete&nocache=' + new Date().getTime(),
+			url: script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=photo&action=delete&nocache=' + new Date().getTime(),
 			type: 'post',
 			dataType: 'json',
-			data: 'group_id=' + group_id + '&token=' + token,
+			data: 'photo_id=' + photo_id + '&token=' + token,
 			beforeSend: function() {
 				$('#button-delete i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
 				$('#button-delete').prop('disabled', true);
@@ -204,7 +204,7 @@ $('#button-delete').on('click', function() {
 		}
 	 
 		$.ajax({
-			url: script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=group&action=delete&nocache=' + new Date().getTime(),
+			url: script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=photo&action=delete&nocache=' + new Date().getTime(),
 			type: 'post',
 			dataType: 'json',
 			data: 'listid=' + listid + '&token={TOKEN}',
@@ -240,10 +240,10 @@ $('#button-delete').on('click', function() {
 </script>
 
 <script type="text/javascript">
-function nv_change_group(group_id, mod) {
-    var nv_timer = nv_settimeout_disable('change_' + mod + '_' + group_id, 5000);
-    var new_vid = $('#change_' + mod + '_' + group_id).val();
-    $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=group&action=' + mod + '&nocache=' + new Date().getTime(), 'group_id=' + group_id + '&new_vid=' + new_vid, function(res) {
+function nv_change_photo(photo_id, mod) {
+    var nv_timer = nv_settimeout_disable('change_' + mod + '_' + photo_id, 5000);
+    var new_vid = $('#change_' + mod + '_' + photo_id).val();
+    $.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=group&action=' + mod + '&nocache=' + new Date().getTime(), 'photo_id=' + photo_id + '&new_vid=' + new_vid, function(res) {
         var r_split = res.split("_");
         if (r_split[0] != 'OK') {
             alert(nv_is_change_act_confirm[2]);

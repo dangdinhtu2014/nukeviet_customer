@@ -57,7 +57,7 @@ $lang_module['photo_error_title']='Cảnh báo: Tiêu đề đối tác không �
 $lang_module['photo_error_links']='Cảnh báo: Liên kết thay thế không phải là một địa chỉ đúng';
 $lang_module['photo_error_warning']='Cảnh báo: Hãy kiểm tra các trường thông báo lỗi';
 $lang_module['photo_error_save']='Cảnh báo: Không cập nhật được nội dung. Tên đối tác có thể bị trùng';
-$lang_module['photo_success_delete'] = 'Đối tác đã được xoá thành công';
+$lang_module['photo_success_delete'] = 'Xoá liên kết thành công';
 $lang_module['photo_error_delete'] = 'Không có đối tác nào được xoá';
 /*function photo*/
 

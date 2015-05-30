@@ -25,8 +25,8 @@
 		<div class="panel-body">
 			<form action="" method="post" enctype="multipart/form-data" id="form-group" class="form-horizontal">
 				<div class="form-group required">
-					<label class="col-sm-2 control-label" for="input-title">{LANG.photo_title}</label>
-					<div class="col-sm-10">
+					<label class="col-sm-4 control-label" for="input-title">{LANG.photo_title}</label>
+					<div class="col-sm-20">
 						<input type="text" name="title" value="{DATA.title}" placeholder="{LANG.photo_title}" id="input-title" class="form-control" />
 						<!-- BEGIN: error_title -->
 						<div class="text-danger">{error_title}</div>
@@ -35,8 +35,8 @@
 				</div>
  
 				<div class="form-group">
-                    <label class="col-sm-2 control-label" for="image">{LANG.photo_image} </label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-4 control-label" for="image">{LANG.photo_image} </label>
+                    <div class="col-sm-20">
 						<div class="input-group">
 							<input class="form-control" type="text" name="image" id="image" value="{DATA.image}" placeholder="{LANG.photo_image}"  />
 							<span class="input-group-btn" >
@@ -47,8 +47,8 @@
                 </div>
 				
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="input-links">{LANG.photo_links}</label>
-					<div class="col-sm-10">
+					<label class="col-sm-4 control-label" for="input-links">{LANG.photo_links}</label>
+					<div class="col-sm-20">
 						<input type="text" name="links" value="{DATA.links}" placeholder="{LANG.photo_links}" id="input-links" class="form-control" />
 						<!-- BEGIN: error_links -->
 						<div class="text-danger">{error_links}</div>
@@ -56,8 +56,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="input-status">{LANG.photo_status}</label>
-					<div class="col-sm-10">
+					<label class="col-sm-4 control-label" for="input-status">{LANG.photo_status}</label>
+					<div class="col-sm-20">
 						<select name="status" id="input-status" class="form-control">
 							<!-- BEGIN: status -->
 							<option value="{STATUS.key}" {STATUS.selected}>{STATUS.name}</option>
